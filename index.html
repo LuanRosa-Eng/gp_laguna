@@ -10,14 +10,15 @@
 html,body{height:100%;margin:0;background:#1a2634;overflow:hidden;font:500 14px Barlow,system-ui,sans-serif;color:var(--ink);user-select:none;-webkit-user-select:none}
 #c{position:fixed;inset:0;width:100%;height:100%;display:block}
 .p{position:fixed;background:var(--panel);border-radius:12px;padding:10px 14px;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);box-shadow:0 8px 24px rgba(0,0,0,.35)}
-#hud{left:calc(env(safe-area-inset-left,0px) + 12px);top:calc(env(safe-area-inset-top,0px) + 12px);line-height:1.25;min-width:215px}
+#hud{left:calc(env(safe-area-inset-left,0px) + 12px);top:calc(env(safe-area-inset-top,0px) + 12px);line-height:1.25;min-width:225px}
 #hud b{font:800 32px/1 'Saira Condensed',sans-serif;display:block;letter-spacing:.5px}
-#hud small{opacity:.82;display:block;font-size:12.5px}
+#hud small{opacity:.84;display:block;font-size:12.5px}
 .bar-wrap{width:100%;height:8px;background:rgba(255,255,255,.15);border-radius:4px;overflow:hidden;margin:6px 0 4px}
 #nitroBar{height:100%;width:100%;background:linear-gradient(90deg,#00b4d8,#00f5d4);transition:width .06s}
 #rpmBar{height:100%;width:20%;background:linear-gradient(90deg,#4ade80,#facc15,#ef4444)}
+.hb-tag{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:4px;background:var(--red);color:#fff;font:800 11px 'Saira Condensed',sans-serif;letter-spacing:.5px}
 
-#scoreBox{left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 12px);text-align:center;min-width:220px;padding:8px 18px}
+#scoreBox{left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 12px);text-align:center;min-width:225px;padding:8px 18px}
 #pts{font:800 30px/1 'Saira Condensed',sans-serif;color:var(--gold);display:block}
 #subPts{font:700 13px Barlow,sans-serif;letter-spacing:.6px;text-transform:uppercase;opacity:.9}
 #driftLive{font:800 22px/1.1 'Saira Condensed',sans-serif;color:var(--cyan);margin-top:4px;min-height:24px;text-shadow:0 0 12px rgba(0,229,255,.5)}
@@ -32,7 +33,7 @@ html,body{height:100%;margin:0;background:#1a2634;overflow:hidden;font:500 14px 
 #msgSub{position:fixed;left:0;right:0;top:37%;text-align:center;font:800 min(6vmin,36px)/1 'Saira Condensed',sans-serif;color:var(--gold);text-shadow:0 3px 14px rgba(0,0,0,.8);pointer-events:none;z-index:12}
 
 #ov{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(8,12,18,.6);backdrop-filter:blur(6px);z-index:25}
-#ov .p{position:static;max-width:440px;text-align:center;padding:24px 28px}
+#ov .p{position:static;max-width:450px;text-align:center;padding:24px 28px}
 #ov h1{margin:0 0 6px;font:800 46px/1 'Saira Condensed',sans-serif;color:var(--red);text-transform:uppercase}
 #ov p{margin:6px 0 14px;font-size:14.5px;line-height:1.45;opacity:.92}
 .row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px 0}
@@ -78,24 +79,24 @@ const fmt=s=>Math.floor(s/60)+':'+(s%60).toFixed(2).padStart(5,'0');
    1. CONFIGURAÇÕES DE ENGENHARIA E MODELOS 3D DO REPOSITÓRIO
    ===================================================================== */
 const CARS=[
-{n:'VW Saveiro',glb:'./volkswagen_saveiro.glb',rotY:0,c:0xf4f4f2,m:1120,L:2.75,t:[1.52,1.50],wf:.60,hcg:.51,r:.32,ww:.23,mu:1.40,cz:.25,cd:.82,ab:.5,dr:'F',br:.68,
- T:[[1500,220],[3000,320],[4800,350],[6200,310],[7000,260]],rm:7000,g:[3.5,2.1,1.5,1.15,.92,.75],fd:3.85,
- s:{kf:36,kr:32,h:110,cf:-1.2,cr:-1.2,tf:0,tr:.1,z:.45,ws:1.0},
+{n:'VW Saveiro',glb:'./volkswagen_saveiro.glb',rotY:0,c:0xf4f4f2,m:1120,L:2.75,t:[1.52,1.50],wf:.58,hcg:.49,r:.32,ww:.23,mu:1.52,cz:.35,cd:.78,ab:.5,dr:'F',br:.66,
+ T:[[1500,240],[3000,340],[4800,370],[6200,330],[7000,280]],rm:7000,g:[3.5,2.15,1.52,1.15,.92,.75],fd:3.85,
+ s:{kf:42,kr:38,h:105,cf:-1.5,cr:-1.4,tf:.05,tr:.1,z:.55,ws:1.0},
  parts:[[1.78,.48,4.35,0,.48,0,0],[1.56,.46,1.65,0,.94,.35,1],[1.5,.05,1.5,0,1.20,.32,0]]},
 
-{n:'BMW M3 E36',glb:'./1997_bmw_m3_e36.glb',rotY:0,c:0x1f56c4,m:1380,L:2.70,t:[1.54,1.56],wf:.50,hcg:.45,r:.33,ww:.26,mu:1.68,cz:1.1,cd:.78,ab:.45,dr:'R',br:.60,
- T:[[2000,285],[3800,355],[5500,375],[7200,345],[7800,305]],rm:7800,g:[3.5,2.25,1.65,1.3,1.05,.85],fd:3.62,
- s:{kf:75,kr:70,h:90,cf:-2.4,cr:-1.8,tf:.1,tr:.15,z:.55,ws:1.0},
+{n:'BMW M3 E36',glb:'./1997_bmw_m3_e36.glb',rotY:0,c:0x1f56c4,m:1380,L:2.70,t:[1.54,1.56],wf:.50,hcg:.44,r:.33,ww:.26,mu:1.72,cz:1.2,cd:.74,ab:.45,dr:'R',br:.60,
+ T:[[2000,310],[3800,385],[5500,410],[7200,375],[7800,330]],rm:7800,g:[3.5,2.25,1.65,1.3,1.05,.85],fd:3.62,
+ s:{kf:78,kr:72,h:88,cf:-2.5,cr:-1.8,tf:.1,tr:.15,z:.62,ws:1.0},
  parts:[[1.82,.44,4.45,0,.44,0,0],[1.52,.38,1.9,0,.84,-.2,1],[1.44,.05,1.5,0,1.05,-.22,0]]},
 
-{n:'BMW M5 E34',glb:'./1995_bmw_m5_e34.glb',rotY:0,c:0x2b2d32,m:1620,L:2.76,t:[1.56,1.58],wf:.51,hcg:.48,r:.34,ww:.27,mu:1.60,cz:.95,cd:.80,ab:.46,dr:'R',br:.60,
- T:[[1800,330],[3500,400],[4800,425],[6500,390],[7200,350]],rm:7200,g:[3.4,2.2,1.6,1.25,1.0,.82],fd:3.73,
- s:{kf:68,kr:64,h:95,cf:-2.0,cr:-1.6,tf:.1,tr:.15,z:.52,ws:1.0},
+{n:'BMW M5 E34',glb:'./1995_bmw_m5_e34.glb',rotY:0,c:0x2b2d32,m:1580,L:2.76,t:[1.56,1.58],wf:.51,hcg:.46,r:.34,ww:.27,mu:1.66,cz:1.05,cd:.76,ab:.46,dr:'R',br:.60,
+ T:[[1800,360],[3500,435],[4800,465],[6500,425],[7200,380]],rm:7200,g:[3.4,2.2,1.6,1.25,1.0,.82],fd:3.73,
+ s:{kf:72,kr:66,h:92,cf:-2.2,cr:-1.6,tf:.1,tr:.15,z:.60,ws:1.0},
  parts:[[1.86,.46,4.72,0,.46,0,0],[1.56,.40,2.05,0,.88,-.22,1],[1.48,.05,1.65,0,1.10,-.24,0]]},
 
-{n:'Dodge Viper ACR',glb:'./2016_dodge_viper_acr.glb',rotY:0,c:0xd9141e,m:1520,L:2.51,t:[1.68,1.72],wf:.49,hcg:.41,r:.36,ww:.35,mu:1.95,cz:3.2,cd:.92,ab:.40,dr:'R',br:.58,
- T:[[1500,580],[3000,740],[4950,813],[6000,760],[6600,680]],rm:6600,g:[2.66,1.78,1.30,1.00,.80,.68],fd:3.55,
- s:{kf:125,kr:130,h:75,cf:-3.2,cr:-2.5,tf:.1,tr:.2,z:.62,ws:1.0},
+{n:'Dodge Viper ACR',glb:'./2016_dodge_viper_acr.glb',rotY:0,c:0xd9141e,m:1500,L:2.51,t:[1.68,1.72],wf:.49,hcg:.40,r:.36,ww:.35,mu:1.95,cz:3.4,cd:.86,ab:.42,dr:'R',br:.58,
+ T:[[1500,600],[3000,760],[4950,835],[6000,780],[6600,700]],rm:6600,g:[2.66,1.78,1.30,1.00,.80,.68],fd:3.55,
+ s:{kf:125,kr:128,h:75,cf:-3.2,cr:-2.4,tf:.1,tr:.2,z:.68,ws:1.0},
  parts:[[1.96,.38,4.48,0,.38,0,0],[1.56,.32,1.75,0,.74,-.25,1],[1.86,.05,.42,0,1.04,-2.15,2]]}
 ];
 
@@ -256,17 +257,17 @@ function surf(x,z,h){
 /* =====================================================================
    4. MARCAS DE PNEU E PARTÍCULAS
    ===================================================================== */
-const MAX_SKIDS=700;
+const MAX_SKIDS=900;
 const skidGeo=new THREE.BufferGeometry();
 const skidPos=new Float32Array(MAX_SKIDS*18);
 skidGeo.setAttribute('position',new THREE.BufferAttribute(skidPos,3));
-const skidMesh=new THREE.Mesh(skidGeo,new THREE.MeshBasicMaterial({color:0x0b0c0e,transparent:true,opacity:0.48,side:THREE.DoubleSide,depthWrite:false}));
+const skidMesh=new THREE.Mesh(skidGeo,new THREE.MeshBasicMaterial({color:0x0b0c0e,transparent:true,opacity:0.52,side:THREE.DoubleSide,depthWrite:false}));
 skidMesh.frustumCulled=false;
 sc.add(skidMesh);
 let skidPtr=0;
-function addSkid(x1,y1,z1,x2,y2,z2,w=0.26){
+function addSkid(x1,y1,z1,x2,y2,z2,w=0.28){
   const dx=x2-x1,dz=z2-z1,len=Math.hypot(dx,dz);
-  if(len<0.05||len>4)return;
+  if(len<0.04||len>4)return;
   const nx=-dz/len*(w/2),nz=dx/len*(w/2),o=skidPtr*18;
   const p=[[x1-nx,y1+.03,z1-nz],[x1+nx,y1+.03,z1+nz],[x2-nx,y2+.03,z2-nz],[x2+nx,y2+.03,z2+nz]];
   [0,1,2,1,3,2].forEach((idx,k)=>{skidPos[o+k*3]=p[idx][0];skidPos[o+k*3+1]=p[idx][1];skidPos[o+k*3+2]=p[idx][2]});
@@ -279,12 +280,12 @@ const pGeo=new THREE.BoxGeometry(1,1,1);
 function spawnParticle(x,y,z,vx,vy,vz,col,size,life,grav=0){
   let p=particles.find(o=>!o.act);
   if(!p){
-    if(particles.length>260)return;
+    if(particles.length>280)return;
     const m=new THREE.Mesh(pGeo,new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:1}));
     sc.add(m);p={m,act:false};particles.push(p);
   }
   p.act=true;p.m.visible=true;p.m.position.set(x,y,z);
-  p.m.material.color.setHex(col);p.m.material.opacity=0.95;
+  p.m.material.color.setHex(col);p.m.material.opacity=0.92;
   p.m.scale.setScalar(size);
   p.vx=vx;p.vy=vy;p.vz=vz;p.life=p.max=life;p.grav=grav;p.sz=size;
 }
@@ -296,53 +297,109 @@ function updateParticles(dt){
     p.vy-=p.grav*dt;
     p.m.position.x+=p.vx*dt;p.m.position.y+=p.vy*dt;p.m.position.z+=p.vz*dt;
     const r=p.life/p.max;
-    p.m.material.opacity=r*0.9;
-    if(p.grav===0)p.m.scale.setScalar(p.sz*(1+(1-r)*2.2));
+    p.m.material.opacity=r*0.88;
+    if(p.grav===0)p.m.scale.setScalar(p.sz*(1+(1-r)*2.4));
   }
 }
 
 /* =====================================================================
-   5. MODELOS 3D REALISTAS (.GLB) + AJUSTE DE RODAS E RIVAIS
+   5. MODELOS 3D (.GLB) COM PIVÔ CONCÊNTRICO NO CENTRO DE CADA RODA
    ===================================================================== */
 const dracoLoader=new THREE.DRACOLoader();
 dracoLoader.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/draco/gltf/');
 const gltfLoader=new THREE.GLTFLoader();gltfLoader.setDRACOLoader(dracoLoader);
 const gltfCache={},gltfPending={};
 
+const WHEEL_INC=/wheel|roda|tire|tyre|pneu|rim|jante|llanta|whl/i;
+const WHEEL_EXC=/caliper|pinca|pinça|disc|disco|brake|freio|arch|fender|well|housing|steer|volante/i;
+
+function isWheelNode(obj,stopAt){
+  let cur=obj;
+  while(cur&&cur!==stopAt){
+    const nm=cur.name||'';
+    if(WHEEL_EXC.test(nm))return false;
+    if(WHEEL_INC.test(nm))return true;
+    cur=cur.parent;
+  }
+  return false;
+}
+
 function applyGLBToCar(vis,gltf,carDef,rotY=0){
   while(vis.body.children.length)vis.body.remove(vis.body.children[0]);
-  /* Esconde as rodas cilíndricas provisórias para não sobrepor as rodas do modelo 3D */
   vis.wh.forEach(w=>w.gw.visible=false);
   vis.glbWheels=[];
 
+  /* Constrói tudo num grupo isolado na origem (0,0,0) com escala 1 para que
+     as coordenadas de mundo coincidam 100% com o sistema local do carro */
+  const carRoot=new THREE.Group();
   const root=gltf.scene.clone(true);
   const holder=new THREE.Group();
   root.rotation.y=rotY;
   holder.add(root);
 
-  /* Escala proporcional ao comprimento real do carro */
   const b0=new THREE.Box3().setFromObject(holder);
   const sz=b0.getSize(new THREE.Vector3());
   const maxDim=Math.max(sz.x,sz.y,sz.z)||1;
-  holder.scale.setScalar((carDef.L*1.6)/maxDim);
+  holder.scale.setScalar((carDef.L*1.62)/maxDim);
 
-  /* Centraliza em X/Z e apoia os pneus exatamente no nível do asfalto (Y=0) */
   const b1=new THREE.Box3().setFromObject(holder);
   const cen=b1.getCenter(new THREE.Vector3());
   holder.position.set(-cen.x,-b1.min.y,-cen.z);
 
+  carRoot.add(holder);
+  carRoot.updateMatrixWorld(true);
+
+  /* Coleta todas as malhas pertencentes às rodas e agrupa pneu + aro pelo centro geométrico */
+  const wheelMeshes=[];
   holder.traverse(child=>{
     if(child.isMesh){
       child.castShadow=true;
       child.receiveShadow=true;
-    }
-    const nm=child.name.toLowerCase();
-    if(nm.includes('wheel')||nm.includes('roda')||nm.includes('tire')||nm.includes('pneu')){
-      if(!vis.glbWheels.includes(child))vis.glbWheels.push(child);
+      if(isWheelNode(child,holder))wheelMeshes.push(child);
     }
   });
 
-  vis.body.add(holder);
+  const clusters=[];
+  wheelMeshes.forEach(m=>{
+    const mb=new THREE.Box3().setFromObject(m);
+    if(mb.isEmpty())return;
+    const mc=mb.getCenter(new THREE.Vector3());
+    let clu=clusters.find(c=>c.center.distanceTo(mc)<0.24);
+    if(!clu){
+      clu={meshes:[],box:mb.clone(),center:mc.clone()};
+      clusters.push(clu);
+    }else{
+      clu.box.union(mb);
+      clu.box.getCenter(clu.center);
+    }
+    clu.meshes.push(m);
+  });
+
+  /* Cria pivôs concêntricos alinhados aos eixos do carro (+X eixo da roda, +Y esterçamento) */
+  clusters.forEach(clu=>{
+    const cPos=clu.box.getCenter(new THREE.Vector3());
+    const wRad=Math.max(0.2,((clu.box.max.y-clu.box.min.y)*0.5)||carDef.r);
+
+    const steerPivot=new THREE.Group();
+    steerPivot.position.copy(cPos);
+    carRoot.add(steerPivot);
+
+    const spinPivot=new THREE.Group();
+    steerPivot.add(spinPivot);
+
+    carRoot.updateMatrixWorld(true);
+    clu.meshes.forEach(m=>spinPivot.attach(m));
+
+    vis.glbWheels.push({
+      steerPivot,
+      spinPivot,
+      isFront:cPos.z>0.05,
+      r:wRad
+    });
+  });
+
+  vis.body.add(carRoot);
+  vis.carRoot=carRoot;
   vis.holder=holder;
   vis.hasGLB=true;
 }
@@ -398,7 +455,7 @@ function mk(c,overrideColor){
     sp.add(new THREE.Mesh(new THREE.BoxGeometry(c.ww+.03,c.r*1.25,.05),M[2]));
     gw.add(sp);gw.position.set(sd*c.t[fr?0:1]/2,c.r,fr?a:-b);g.add(gw);wh.push({gw,sp,fr,sd});
   }
-  const vis={g,body,wh,glbWheels:[],hasGLB:false,holder:null,blMat,flames,paintMat:M[0]};
+  const vis={g,body,wh,glbWheels:[],hasGLB:false,carRoot:null,holder:null,blMat,flames,paintMat:M[0]};
   loadCarGLB(vis,c);
   return vis;
 }
@@ -444,7 +501,7 @@ let car=CARS[0],U={},V=null,ST=null,mode='menu',lap=1,half=false,prevI=0,t0=0,tv
 let best=+(lsGet('gpBest')||0),highScore=+(lsGet('gpHighScore')||0);
 let score=0,wrecks=0,driftPts=0,driftMult=1,driftTimer=0,nitro=1.0,slowMo=0,shake=0;
 let prevRearL=null,prevRearR=null;
-const K={up:0,down:0,left:0,right:0,boost:0};
+const K={up:0,down:0,left:0,right:0,ebrake:0,boost:0};
 
 const AI_COLORS=[0xe63946,0x2a9d8f,0xf4a261,0x8338ec,0x06d6a0];
 let rivals=[];
@@ -452,7 +509,6 @@ function spawnRivals(){
   rivals.forEach(r=>sc.remove(r.vis.g));
   rivals=[];
   for(let k=0;k<5;k++){
-    /* Distribui os modelos 3D baixados (M3 E36, M5 E34, Viper ACR, Saveiro) entre os concorrentes */
     const cDef=CARS[(k+1)%CARS.length];
     const vis=mk(cDef,AI_COLORS[k]);
     sc.add(vis.g);
@@ -539,7 +595,7 @@ function updateRivals(dt){
     rv.vis.g.position.set(rv.x,rv.y,rv.z);
     rv.vis.g.rotation.set(0,rv.psi,0);
     rv.vis.wh.forEach(w=>w.sp.rotation.x+=rv.v*dt/rv.c.r);
-    rv.vis.glbWheels.forEach(w=>w.rotation.x+=rv.v*dt/rv.c.r);
+    rv.vis.glbWheels.forEach(w=>w.spinPivot.rotation.x+=rv.v*dt/w.r);
 
     if(rv.hp<50&&Math.random()<0.35){
       spawnParticle(rv.x,rv.y+.7,rv.z,(Math.random()-.5)*1.5,2+Math.random()*2,(Math.random()-.5)*1.5,rv.hp<25?0xff4500:0x333333,.45,.8,0);
@@ -606,7 +662,7 @@ function pick(i){
 }
 function place(){
   const i=NP-8;
-  ST={x:pts[i].x,z:pts[i].z,y:pts[i].y,psi:Math.atan2(tg[i].x,tg[i].z),u:0,v:0,r:0,gear:0,rpm:1000,ax:0,ay:0,th:0,bk:0,st:0,del:0,hint:i,sf:1,slope:0,roll:0,bp:0,fz:[0,0,0,0],d:0,rd:.5,slipAng:0};
+  ST={x:pts[i].x,z:pts[i].z,y:pts[i].y,psi:Math.atan2(tg[i].x,tg[i].z),u:0,v:0,r:0,gear:0,rpm:1000,ax:0,ay:0,th:0,bk:0,eb:0,st:0,del:0,hint:i,sf:1,slope:0,roll:0,bp:0,fz:[0,0,0,0],d:0,rd:.5,slipAng:0};
   lap=1;half=false;prevI=i;prevRearL=prevRearR=null;
 }
 
@@ -638,23 +694,23 @@ function sliders(){
   SL.forEach(s=>$('i_'+s[0]).oninput=e=>{U[s[0]]=+e.target.value;$('v_'+s[0]).textContent=U[s[0]]});
   $('flipBtn').onclick=()=>{
     car.rotY=(car.rotY||0)+Math.PI;
-    if(V.holder)V.holder.children[0].rotation.y=car.rotY;
-    rivals.forEach(rv=>{if(rv.c===car&&rv.vis.holder)rv.vis.holder.children[0].rotation.y=car.rotY});
+    if(gltfCache[car.glb])applyGLBToCar(V,gltfCache[car.glb],car,car.rotY);
+    rivals.forEach(rv=>{if(rv.c===car&&gltfCache[car.glb])applyGLBToCar(rv.vis,gltfCache[car.glb],rv.c,car.rotY)});
   };
 }
 
 /* =====================================================================
-   9. FÍSICA VEICULAR 120Hz + DRIFT + NITRO
+   9. FÍSICA VEICULAR REALISTA 120Hz (HANDLING + FREIO DE MÃO + DRIFT)
    ===================================================================== */
 function world(){
   const S=ST,sp=Math.sin(S.psi),cp=Math.cos(S.psi),e=surf(S.x,S.z,S.hint),lim=W/2+13;
   S.hint=e.i;
   if(e.d>lim){
     const k=e.s-Math.sign(e.s)*lim;
-    S.x-=nr[e.i].x*k;S.z-=nr[e.i].z*k;S.u*=.72;S.v*=.3;S.r*=.5;
+    S.x-=nr[e.i].x*k;S.z-=nr[e.i].z*k;S.u*=.76;S.v*=.35;S.r*=.55;
     playCrashSound(false);
   }
-  S.y=e.y;S.d=e.d;S.sf=e.d<W/2?1:e.d<W/2+1.4?1-.28*Math.min(1,(U.kf+U.kr)/400):.58;
+  S.y=e.y;S.d=e.d;S.sf=e.d<W/2?1:e.d<W/2+1.4?1-.24*Math.min(1,(U.kf+U.kr)/400):.64;
   const f=surf(S.x+sp*car.L/2,S.z+cp*car.L/2,e.i).y,r=surf(S.x-sp*car.L/2,S.z-cp*car.L/2,e.i).y;
   S.slope=Math.atan2(f-r,car.L);
 
@@ -676,79 +732,130 @@ function world(){
 
 function phys(dt){
   const c=car,s=U,S=ST,m=c.m,L=c.L,b=c.wf*L,a=L-b,tf=c.t[0],tr=c.t[1];
-  if(mode==='count'||mode==='menu'){S.u=S.v=S.r=S.slipAng=0;return}
+  if(mode==='count'||mode==='menu'){S.u=S.v=S.r=S.slipAng=S.eb=0;return}
   const go=mode==='race',kf=s.kf*1000,kr=s.kr*1000,Kf=kf*tf*tf/2,Kr=kr*tr*tr/2,rd=Kf/(Kf+Kr),
         hcg=c.hcg+(s.h-c.s.h)/1000,hh=Math.max(.05,hcg-.1),cz=c.cz*cl(1+(c.s.h-s.h)/1000*5,.6,1.6);
-  const rev=go&&K.down&&S.u<=1;S.rd=rd;
+  const rev=go&&K.down&&S.u<=1.2&&!K.ebrake;S.rd=rd;
   const boosting=go&&K.boost&&nitro>0.02&&S.u>5;
   if(boosting)nitro=Math.max(0,nitro-0.28*dt);
   else nitro=Math.min(1,nitro+0.03*dt);
 
-  S.th+=((go&&K.up?1:0)-S.th)*Math.min(1,dt*9);
-  S.bk+=(((go&&K.down&&S.u>1)||mode==='done'?1:0)-S.bk)*Math.min(1,dt*10);
-  const si=go?(K.left?1:0)-(K.right?1:0):0;
-  S.st+=(si-S.st)*Math.min(1,dt*(si?6:9));
-  const u=S.u;S.del=S.st*.44/(1+.0015*u*u);
+  /* Pedais e Freio de Mão (Espaço) */
+  S.th+=((go&&K.up?1:0)-S.th)*Math.min(1,dt*10);
+  S.bk+=(((go&&K.down&&S.u>1.2)||mode==='done'?1:0)-S.bk)*Math.min(1,dt*11);
+  S.eb+=((go&&K.ebrake?1:0)-S.eb)*Math.min(1,dt*18);
 
+  /* Direção progressiva com auto-alinhamento de caster durante o drift */
+  const si=go?(K.left?1:0)-(K.right?1:0):0;
+  const steerRate=si?(Math.sign(si)!==Math.sign(S.st)?11:7.2):10.5;
+  S.st+=(si-S.st)*Math.min(1,dt*steerRate);
+
+  const u=S.u;
+  const maxLock=0.52/(1+0.00085*u*u);
+  const casterAlign=Math.abs(u)>7?cl(-S.slipAng*0.44,-0.32,0.32):0;
+  S.del=cl(S.st*maxLock+casterAlign,-0.62,0.62);
+
+  /* Motor e transmissão */
   const effR=c.r*(s.ws||1.0);
   const raw=Math.abs(u)/effR*c.g[S.gear]*c.fd*9.549;
-  if(raw>c.rm*.96&&S.gear<c.g.length-1)S.gear++;else if(raw<c.rm*.5&&S.gear>0)S.gear--;
-  S.rpm=Math.max(raw,c.rm*.3);let Tq=0;const T=c.T;
+  if(raw>c.rm*.95&&S.gear<c.g.length-1)S.gear++;else if(raw<c.rm*.48&&S.gear>0)S.gear--;
+  S.rpm=Math.max(raw,c.rm*.28);let Tq=0;const T=c.T;
   for(let i=1;i<T.length;i++)if(S.rpm<=T[i][0]||i===T.length-1){Tq=T[i-1][1]+(T[i][1]-T[i-1][1])*cl((S.rpm-T[i-1][0])/(T[i][0]-T[i-1][0]),0,1);break}
   if(S.rpm>=c.rm)Tq=0;
 
   const boostMult=boosting?1.52:1.0;
-  const Fd=(Tq*c.g[S.gear]*c.fd*.92/effR*S.th)*boostMult,Fr=Tq*c.g[0]*c.fd*.9/effR*.28;
+  const Fd=(Tq*c.g[S.gear]*c.fd*.92/effR*S.th)*boostMult,Fr=Tq*c.g[0]*c.fd*.9/effR*.30;
+
+  /* Transferência dinâmica de peso longitudinal e lateral */
   const df=.5*RHO*u*u*cz,lon=S.ax,lat=S.ay,dLon=m*lon*hcg/L,dF=m*lat*(b/L*.08/tf+hh*rd/tf),dR=m*lat*(a/L*.1/tr+hh*(1-rd)/tr);
-  const AX=[m*G*b/L-dLon+df*c.ab,m*G*a/L+dLon+df*(1-c.ab)],roll=cl(m*lat*hh/(Kf+Kr-m*G*hh),-.15,.15);
-  S.roll=roll;S.bp=cl(m*lon*hh/(2*kf*a*a+2*kr*b*b),-.08,.08);
+  const AX=[m*G*b/L-dLon+df*c.ab,m*G*a/L+dLon+df*(1-c.ab)];
+  const targetRoll=cl(m*lat*hh/(Kf+Kr-m*G*hh),-.13,.13);
+  const targetPitch=cl(m*lon*hh/(2*kf*a*a+2*kr*b*b),-.07,.07);
+  S.roll+=(targetRoll-S.roll)*Math.min(1,dt*14);
+  S.bp+=(targetPitch-S.bp)*Math.min(1,dt*14);
+
+  /* Dinâmica dos 4 pneus com círculo de atrito e quebra de tração traseira no drift */
+  const slipDeg=Math.abs(S.slipAng)/DEG;
+  const powerSlide=(c.dr==='R'&&S.th>0.55&&(slipDeg>6||S.eb>0.1))?cl((S.th-0.5)*1.6,0,1):0;
 
   let Fx=0,Fy=0,Mz=0,FxT=0;
   for(let w=0;w<4;w++){
-    const fr=w<2,sd=w%2?-1:1,xi=fr?a:-b,yi=sd*(fr?tf:tr)/2,Fz=Math.max(60,AX[fr?0:1]/2-sd*(fr?dF:dR));
+    const fr=w<2,sd=w%2?-1:1,xi=fr?a:-b,yi=sd*(fr?tf:tr)/2,Fz=Math.max(80,AX[fr?0:1]/2-sd*(fr?dF:dR));
     S.fz[w]=Fz;
-    const cam_=(fr?s.cf:s.cr)+(sd*lat<0?1:-1)*.7*Math.abs(roll)/DEG,
-          fc=1.045-.0045*Math.pow(cam_+3.2,2),
-          Fm=c.mu*(1-.1*(Fz/(m*G/4)-1))*S.sf*Fz;
+    const cam_=(fr?s.cf:s.cr)+(sd*lat<0?1:-1)*.65*Math.abs(S.roll)/DEG,
+          fc=1.045-.0042*Math.pow(cam_+3.0,2),
+          Fm=c.mu*(1-.08*(Fz/(m*G/4)-1))*S.sf*Fz;
+
     const dw=(fr?S.del:0)-sd*(fr?s.tf:s.tr)*DEG,co=Math.cos(dw),sn=Math.sin(dw),
           vx=u-S.r*yi,vy=S.v+S.r*xi,vl=vx*co+vy*sn,vt=-vx*sn+vy*co;
-    const fy=-Fm*fc*Math.sin(1.5*Math.atan(14*Math.atan2(vt,Math.abs(vl)+1.5))),drv=(c.dr==='R')!==fr;
+
+    const alpha=Math.atan2(vt,Math.abs(vl)+2.2);
+    const B=fr?11.4:10.0,C=fr?1.36:1.42;
+    let latGrip=1.0;
+    if(!fr){
+      /* Freio de mão trava as rodas traseiras; excesso de torque RWD sustenta a derrapagem */
+      latGrip*=(1-0.74*S.eb);
+      latGrip*=(1-0.28*powerSlide);
+    }else{
+      latGrip*=1.04;
+    }
+
+    const fy=-Fm*fc*latGrip*Math.sin(C*Math.atan(B*alpha));
+    const drv=(c.dr==='R')!==fr;
     let cmd=0;
-    if(rev&&drv)cmd=-Fr/2;else{if(drv)cmd+=Fd/2;cmd-=S.bk*3.5*m*G*(fr?c.br:1-c.br)/2*cl(vl/.6,-1,1)}
+    if(rev&&drv){
+      cmd=-Fr/2;
+    }else{
+      if(drv&&!( !fr && S.eb>0.4 ))cmd+=Fd/2;
+      cmd-=S.bk*3.4*m*G*(fr?c.br:1-c.br)/2*cl(vl/.6,-1,1);
+      if(!fr&&S.eb>0.01)cmd-=S.eb*1.9*m*G*0.5*cl(vl/.5,-1,1);
+    }
+
     const lim=Math.sqrt(Math.max(0,Math.pow(Fm*fc,2)-fy*fy)),fx=cl(cmd,-lim,lim),bx=fx*co-fy*sn,by=fx*sn+fy*co;
     Fx+=bx;Fy+=by;FxT+=bx;Mz+=xi*by-yi*bx;
   }
+
+  /* Resistência aerodinâmica, rolamento, inclinação e amortecimento de guinada */
+  const Iz=m*(0.26*L*L+0.24*tf*tf);
+  const yawDamp=-S.r*m*(0.45+0.025*Math.abs(u))*(1-0.55*S.eb);
   Fx+=-.5*RHO*c.cd*u*Math.abs(u)-.012*m*G*cl(u,-1,1)-m*G*Math.sin(S.slope);
-  S.u+=(Fx/m+S.v*S.r)*dt;S.v+=(Fy/m-u*S.r)*dt;S.r+=Mz/(m*1.52)*dt;
-  if(Math.abs(S.u)<4){const k=1-Math.min(1,dt*(5-Math.abs(S.u))*2);S.v*=k;S.r*=k}
-  const f=cl(dt*(8+10*s.z),0,1);S.ax+=(FxT/m-S.ax)*f;S.ay+=(Fy/m-S.ay)*f;
+
+  S.u+=(Fx/m+S.v*S.r)*dt;
+  S.v+=(Fy/m-u*S.r)*dt;
+  S.r+=((Mz+yawDamp)/Iz)*dt;
+
+  if(Math.abs(S.u)<3.5&&S.th<0.05){const k=1-Math.min(1,dt*(4.5-Math.abs(S.u))*2);S.v*=k;S.r*=k}
+  const f=cl(dt*(9+10*s.z),0,1);S.ax+=(FxT/m-S.ax)*f;S.ay+=(Fy/m-S.ay)*f;
   S.psi+=S.r*dt;
   const sp=Math.sin(S.psi),cp=Math.cos(S.psi);
   S.x+=(S.u*sp+S.v*cp)*dt;S.z+=(S.u*cp-S.v*sp)*dt;
-  S.slipAng=Math.abs(S.u)>6?Math.atan2(S.v,Math.abs(S.u)):0;
+  S.slipAng=Math.abs(S.u)>4.5?Math.atan2(S.v,Math.abs(S.u)):0;
 }
 
 function updateDriftAndFX(dt){
   const S=ST,c=car,spdKmh=Math.abs(S.u)*3.6,degSlip=Math.abs(S.slipAng)/DEG;
-  const isDrifting=mode==='race'&&spdKmh>36&&degSlip>10.5&&S.d<W/2+1.2;
+  const handbrakeLock=mode==='race'&&spdKmh>22&&S.eb>0.35;
+  const isDrifting=mode==='race'&&spdKmh>32&&(degSlip>8.5||handbrakeLock)&&S.d<W/2+1.2;
 
   const sp=Math.sin(S.psi),cp=Math.cos(S.psi),b=c.wf*c.L,ht=c.t[1]/2;
   const rLx=S.x-sp*b-cp*ht,rLz=S.z-cp*b+sp*ht;
   const rRx=S.x-sp*b+cp*ht,rRz=S.z-cp*b-sp*ht;
 
-  if(isDrifting){
-    driftTimer=1.2;
-    const rate=(degSlip*3.8+spdKmh*1.6)*dt;
+  if(isDrifting||handbrakeLock){
+    if(prevRearL){addSkid(prevRearL[0],S.y,prevRearL[1],rLx,S.y,rLz,c.ww);addSkid(prevRearR[0],S.y,prevRearR[1],rRx,S.y,rRz,c.ww)}
+    if(Math.random()<0.8){
+      spawnParticle(rLx,S.y+.15,rLz,(Math.random()-.5)*1.5,1.2+Math.random(),(Math.random()-.5)*1.5,0xeaeaea,.38,.60,0);
+      spawnParticle(rRx,S.y+.15,rRz,(Math.random()-.5)*1.5,1.2+Math.random(),(Math.random()-.5)*1.5,0xeaeaea,.38,.60,0);
+    }
+  }
+
+  if(isDrifting&&degSlip>8.5){
+    driftTimer=1.35;
+    const rate=(degSlip*4.2+spdKmh*1.7)*dt;
     driftPts+=rate;
     driftMult=driftPts>1500?5:driftPts>700?3:driftPts>250?2:1;
-    nitro=Math.min(1,nitro+0.16*dt);
-
-    if(prevRearL){addSkid(prevRearL[0],S.y,prevRearL[1],rLx,S.y,rLz,c.ww);addSkid(prevRearR[0],S.y,prevRearR[1],rRx,S.y,rRz,c.ww)}
-    if(Math.random()<0.75){
-      spawnParticle(rLx,S.y+.15,rLz,(Math.random()-.5)*1.5,1.2+Math.random(),(Math.random()-.5)*1.5,0xeaeaea,.35,.55,0);
-      spawnParticle(rRx,S.y+.15,rRz,(Math.random()-.5)*1.5,1.2+Math.random(),(Math.random()-.5)*1.5,0xeaeaea,.35,.55,0);
-    }
-    $('driftLive').textContent=`DRIFT ${Math.round(driftPts)} ×${driftMult}`;
+    nitro=Math.min(1,nitro+0.18*dt);
+    $('driftLive').textContent=`DRIFT ${Math.round(degSlip)}° · ${Math.round(driftPts)} ×${driftMult}`;
   }else{
     if(driftTimer>0){
       driftTimer-=dt;
@@ -765,7 +872,7 @@ function updateDriftAndFX(dt){
   prevRearL=[rLx,rLz];prevRearR=[rRx,rRz];
 
   const boosting=mode==='race'&&K.boost&&nitro>0.02&&S.u>5;
-  V.blMat.color.setHex(S.bk>0.1?0xff1e1e:0x660606);
+  V.blMat.color.setHex((S.bk>0.1||S.eb>0.1)?0xff1e1e:0x660606);
   V.flames.forEach(fl=>{fl.visible=boosting;if(boosting)fl.scale.z=0.7+Math.random()*0.8});
 
   if(au&&audioOn){
@@ -774,7 +881,8 @@ function updateDriftAndFX(dt){
     engSub.frequency.value=24+rpmRatio*97.5;
     engFilter.frequency.value=260+S.th*950+rpmRatio*700;
     engGain.gain.value=(mode==='race'||mode==='count')?(0.045+S.th*0.045):0;
-    screechGain.gain.value=isDrifting?cl((degSlip-10)/25,0,0.09):0;
+    const tireSlip=Math.max(degSlip-8,handbrakeLock?16:0);
+    screechGain.gain.value=(isDrifting||handbrakeLock)?cl(tireSlip/24,0,0.095):0;
   }else if(au){
     engGain.gain.value=0;screechGain.gain.value=0;
   }
@@ -806,7 +914,7 @@ function start(){
   },850);
 }
 
-const kmap={ArrowUp:'up',KeyW:'up',ArrowDown:'down',KeyS:'down',ArrowLeft:'left',KeyA:'left',ArrowRight:'right',KeyD:'right',ShiftLeft:'boost',ShiftRight:'boost',Space:'boost'};
+const kmap={ArrowUp:'up',KeyW:'up',ArrowDown:'down',KeyS:'down',ArrowLeft:'left',KeyA:'left',ArrowRight:'right',KeyD:'right',Space:'ebrake',ShiftLeft:'boost',ShiftRight:'boost',KeyE:'boost'};
 addEventListener('keydown',e=>{
   if(kmap[e.code]){K[kmap[e.code]]=1;e.preventDefault()}
   if(e.repeat)return;
@@ -832,6 +940,7 @@ function render(dt,t){
   V.g.rotation.set(-S.slope-S.bp,S.psi,S.roll);
   V.body.position.y=(U.h-c.s.h)/1000-.02;
 
+  /* Atualiza rodas procedurais (se ativas) e pivôs concêntricos das rodas do .glb */
   V.wh.forEach(w=>{
     const toe=(w.fr?S.del:0)-w.sd*(w.fr?U.tf:U.tr)*DEG;
     w.gw.rotation.set(0,toe,-w.sd*(w.fr?U.cf:U.cr)*DEG);
@@ -839,8 +948,12 @@ function render(dt,t){
     w.gw.position.y=c.r*ws;
     w.sp.rotation.x+=S.u*dt/(c.r*ws);
   });
+  if(V.carRoot)V.carRoot.position.y=(ws-1)*c.r;
   V.glbWheels.forEach(w=>{
-    w.rotation.x+=S.u*dt/(c.r*ws);
+    w.steerPivot.scale.setScalar(ws);
+    w.steerPivot.rotation.y=w.isFront?S.del:0;
+    const wheelSlip=(!w.isFront&&S.eb>0.4)?0.15:1.0;
+    w.spinPivot.rotation.x+=(S.u*wheelSlip*dt)/(w.r*ws);
   });
 
   sun.position.set(S.x+65,S.y+95,S.z+45);sun.target.position.set(S.x,S.y,S.z);
@@ -869,11 +982,12 @@ function render(dt,t){
   const f=S.fz.map(v=>(v/1000).toFixed(1));
   const playerProg=(lap-1)*NP+S.hint;
   const posRank=1+rivals.filter(rv=>!rv.wrecked&&rv.p>playerProg).length;
+  const hbBadge=S.eb>0.2?'<span class="hb-tag">FREIO DE MÃO</span>':'';
 
   $('pts').textContent=`${score.toLocaleString()} PTS`;
   $('subPts').textContent=`DESTRUÍDOS: ${wrecks} · POS: ${posRank}º/6 · RECORDE: ${highScore.toLocaleString()}`;
 
-  $('hud').innerHTML=`<small>${c.n} · ${c.dr==='R'?'Tração Traseira':'Tração Dianteira'}</small>
+  $('hud').innerHTML=`<small>${c.n} · ${c.dr==='R'?'Tração Traseira':'Tração Dianteira'}${hbBadge}</small>
     <b>${Math.round(Math.abs(S.u)*3.6)} km/h</b>
     <div class="bar-wrap"><div id="rpmBar" style="width:${Math.round(S.rpm/c.rm*100)}%"></div></div>
     <small>Marcha ${S.gear+1} · ${Math.round(S.rpm)} RPM · Nitro ${Math.round(nitro*100)}%</small>
@@ -911,7 +1025,7 @@ function loop(t){
 
 pick(0);
 spawnRivals();
-menu('<b>WASD / Setas:</b> Pilotar · <b>Shift / Espaço:</b> Nitro<br><b>T:</b> Setup Mecânico · <b>C:</b> Câmera · <b>R:</b> Reset · <b>P:</b> Pausa<br>Derrape nas curvas para carregar Nitro e bata nos rivais para destruí-los!','Largar');
+menu('<b>WASD / Setas:</b> Pilotar · <b>Espaço:</b> Freio de Mão · <b>Shift:</b> Nitro<br><b>T:</b> Setup Mecânico · <b>C:</b> Câmera · <b>R:</b> Reset · <b>P:</b> Pausa<br>Use o freio de mão e o acelerador nas curvas para iniciar o drift!','Largar');
 requestAnimationFrame(loop);
 </script>
 </body>
